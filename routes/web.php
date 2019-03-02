@@ -21,3 +21,7 @@ Route::put('diary/{id}/update', 'DiaryController@update')->name('diary.update');
 
 Route::delete('diary/{id}/delete', 'DiaryController@destroy')->name('diary.destroy');
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

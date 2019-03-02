@@ -20,6 +20,7 @@
                 @endif
                 <form action="{{ route('diary.update', ['id' => $diary->id]) }}" method="post">
                     @csrf
+                    @method('put')
                     <div class="form-group">
                         <label for="title">タイトル</label>
                         <input type="text" class="form-control" name="title" id="title" value="{{ old('title', $diary->title) }}">

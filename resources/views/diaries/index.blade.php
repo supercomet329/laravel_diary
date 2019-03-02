@@ -16,6 +16,7 @@
             <p>{{ $diary->title }}</p>
             <p>{{ $diary->body }}</p>
             <p>{{ $diary->created_at }}</p>
+            <a href="{{ route('diary.edit', ['id' => $diary->id]) }}">編集</a>
         </div>
     @endforeach
 </body>

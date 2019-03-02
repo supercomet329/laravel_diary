@@ -22,11 +22,11 @@
                     @csrf
                     <div class="form-group">
                         <label for="title">タイトル</label>
-                        <input type="text" class="form-control" name="title" id="title" />
+                        <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}">
                     </div>
                     <div class="form-group">
                         <label for="title">本文</label>
-                        <textarea class="form-control" name="body" id="body"></textarea>
+                        <textarea class="form-control" name="body" id="body">{{ old('body') }}</textarea>
                     </div>
                     <div class="text-right">
                         <button type="submit" class="btn btn-primary">投稿</button>

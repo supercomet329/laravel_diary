@@ -22,7 +22,7 @@
                     <input type="text" class="form-control" name="title" id="title" value="{{ old('title') }}">
                 </div>
                 <div class="form-group">
-                    <label for="title">本文</label>
+                    <label for="body">本文</label>
                     <textarea class="form-control" name="body" id="body">{{ old('body') }}</textarea>
                 </div>
                 <div class="text-right">

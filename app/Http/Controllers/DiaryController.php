@@ -10,12 +10,6 @@ use Illuminate\Support\Facades\Auth;
 
 class DiaryController extends Controller
 {
-    private $diary;
-
-    public function __construct(Diary $diary)
-    {
-        $this->diary = $diary;
-    }
 
     public function index()
     {

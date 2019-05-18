@@ -75,6 +75,11 @@
                     </ul>
                 </div>
             </div>
+            @if (Auth::check())
+                <input type="hidden" id="user-id" value="{{ Auth::id() }}">
+            @else
+                <input type="hidden" id="user-id" value="">
+            @endif
         </nav>
 
         <main class="py-4 container">

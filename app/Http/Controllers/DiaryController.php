@@ -4,15 +4,22 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Diary;
+use App\Like;
 use App\Http\Requests\CreateDiary;
 use Illuminate\Support\Facades\Auth;
 
 class DiaryController extends Controller
 {
+    private $diary;
+
+    public function __construct(Diary $diary)
+    {
+        $this->diary = $diary;
+    }
+
     public function index()
     {
-
-        $diaries = Diary::orderBy('id', 'desc')->get();
+        $diaries = Diary::with('likes')->orderBy('id', 'desc')->get();
 
         return view('diaries.index',[
             'diaries' => $diaries,
@@ -69,5 +76,19 @@ class DiaryController extends Controller
         $diary->delete();
 
         return redirect()->route('diary.index');
+    }
+
+    public function like(int $id)
+    {
+        $diary = Diary::where('id', $id)->with('likes')->first();
+
+        $diary->likes()->attach(Auth::user()->id);
+    }
+
+    public function dislike(int $id)
+    {
+        $diary = Diary::where('id', $id)->with('likes')->first();
+
+        $diary->likes()->detach(Auth::user()->id);
     }
 }

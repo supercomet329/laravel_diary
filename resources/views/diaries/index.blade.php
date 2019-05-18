@@ -22,9 +22,15 @@
             </form>
         @endif
         <div class=" mt-3 ml-3">
-            <i class="far fa-heart fa-lg text-danger js-like"></i>
-            {{-- <i class="fas fa-heart fa-lg text-danger"></i> --}}
-            <span>200</span>
+            @if (Auth::check() && $diary->likes->contains(function ($user) {
+                return $user->id === Auth::user()->id;
+            }))
+                <i class="fas fa-heart fa-lg text-danger js-dislike"></i>
+            @else
+                <i class="far fa-heart fa-lg text-danger js-like"></i>
+            @endif
+            <input class="diary-id" type="hidden" value="{{ $diary->id }}">
+            <span class="js-like-num">{{ $diary->likes->count() }}</span>
         </div>
     </div>
 @endforeach

@@ -21,8 +21,8 @@
                 <button class="btn btn-danger">削除</button>
             </form>
         @endif
-        <div class=" mt-3 ml-3 js-like">
-            <i class="far fa-heart fa-lg text-danger"></i>
+        <div class=" mt-3 ml-3">
+            <i class="far fa-heart fa-lg text-danger js-like"></i>
             {{-- <i class="fas fa-heart fa-lg text-danger"></i> --}}
             <span>200</span>
         </div>

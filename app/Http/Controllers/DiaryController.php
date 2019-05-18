@@ -12,7 +12,7 @@ class DiaryController extends Controller
     public function index()
     {
 
-        $diaries = Diary::all();
+        $diaries = Diary::orderBy('id', 'desc')->get();
 
         return view('diaries.index',[
             'diaries' => $diaries,

@@ -9,7 +9,7 @@
     新規投稿
 </a>
 @foreach ($diaries as $diary)
-    <div class="m-4 p-4 border border-primary">
+    <div class="mt-4 p-3 border border-primary">
         <p>{{ $diary->title }}</p>
         <p>{{ $diary->body }}</p>
         <p>{{ $diary->created_at }}</p>
@@ -21,6 +21,11 @@
                 <button class="btn btn-danger">削除</button>
             </form>
         @endif
+        <div class=" mt-3 ml-3 js-like">
+            <i class="far fa-heart fa-lg text-danger"></i>
+            {{-- <i class="fas fa-heart fa-lg text-danger"></i> --}}
+            <span>200</span>
+        </div>
     </div>
 @endforeach
 @endsection

@@ -11,6 +11,8 @@ DB_PASSWORD={DB_PASSWORD}
 DB_SOCKET=/Applications/XAMPP/xamppfiles/var/mysql/mysql.sock   //XAMPPを使用する場合のみ追記
 ```
 
+- `composer install`
+
 - `php artisan key:generate`
 
 - `php artisan migrate:fresh --seed`

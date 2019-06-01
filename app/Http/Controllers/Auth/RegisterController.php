@@ -61,18 +61,24 @@ class RegisterController extends Controller
         ]);
     }
 
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param  array  $data
-     * @return \App\User
-     */
     protected function create(array $data)
     {
+        $fileName = $this->saveProfileImage($data['picture']);
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'picture_path' => $fileName,
         ]);
+    }
+
+    private function saveProfileImage($image)
+    {
+        // デフォルトではstorage/app/images/profilePictureに保存
+        // ファイル名は自動で設定
+        $fileName = $image->store('images/profilePicture');
+
+        return $fileName;
     }
 }

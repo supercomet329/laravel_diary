@@ -77,7 +77,8 @@ class RegisterController extends Controller
     {
         // デフォルトではstorage/app/images/profilePictureに保存
         // ファイル名は自動で設定
-        $fileName = $image->store('images/profilePicture');
+        // php artisan storage:linkでシンボリックリンクを作成
+        $fileName = $image->store('images/profilePicture', 'public');
 
         return $fileName;
     }

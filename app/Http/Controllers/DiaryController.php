@@ -7,6 +7,7 @@ use App\Diary;
 use App\Like;
 use App\Http\Requests\CreateDiary;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Carbon;
 
 class DiaryController extends Controller
 {
@@ -29,9 +30,18 @@ class DiaryController extends Controller
     {        
         $diary = new Diary(); //Diaryモデルをインスタンス化
 
+
+        // TODO: isValidだけでチェックできないか確認
+        $fileName = null;
+        if ($request->hasFile('image') && $request->file('image')->isValid()) {
+            $fileName = $this->saveImage($request->file('image')); //$request->imageでもOK
+        }
+        
+
         $diary->title = $request->title; //画面で入力されたタイトルを代入
         $diary->body = $request->body; //画面で入力された本文を代入
         $diary->user_id = Auth::user()->id;
+        $diary->image_path = $fileName;
         $diary->save(); //DBに保存
 
         return redirect()->route('diary.index'); //一覧ページにリダイレクト
@@ -84,5 +94,19 @@ class DiaryController extends Controller
         $diary = Diary::where('id', $id)->with('likes')->first();
 
         $diary->likes()->detach(Auth::user()->id);
+    }
+
+    private function saveImage($image)
+    {
+        // Carbonは日付操作のライブラリ
+        $dt = Carbon::now();
+
+        // Userごとに年/月のフォルダを作成して画像を保存
+        $fileName = $image->store(
+            'images/diaries/' .Auth::user()->id . '/' . $dt->year . '/' . $dt->month, 
+            'public'
+        );
+
+        return $fileName;
     }
 }

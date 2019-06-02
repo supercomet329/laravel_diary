@@ -26,6 +26,7 @@ class CreateDiary extends FormRequest
         return [
             'title' => 'required|max:30', 
             'body' => 'required',
+            'image' => 'image|mimes:jpeg,png,gif,jpg|max:2048',
         ];
     }
 

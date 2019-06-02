@@ -14,7 +14,7 @@ class DiaryController extends Controller
 
     public function index()
     {
-        $diaries = Diary::with('likes')->orderBy('id', 'desc')->get();
+        $diaries = Diary::with('likes')->orderBy('id', 'desc')->paginate(5);
 
         return view('diaries.index',[
             'diaries' => $diaries,

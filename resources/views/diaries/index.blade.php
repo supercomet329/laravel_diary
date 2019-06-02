@@ -35,4 +35,9 @@
         </div>
     </div>
 @endforeach
+
+<div class="mt-5 d-flex justify-content-center">
+    {{ $diaries->links() }}
+</div>
+
 @endsection

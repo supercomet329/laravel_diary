@@ -8,6 +8,7 @@ use App\Like;
 use App\Http\Requests\CreateDiary;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Storage;
 
 class DiaryController extends Controller
 {
@@ -27,7 +28,7 @@ class DiaryController extends Controller
     }
 
     public function store(CreateDiary $request)
-    {        
+    {
         $diary = new Diary(); //Diaryモデルをインスタンス化
 
 
@@ -35,8 +36,10 @@ class DiaryController extends Controller
         $fileName = null;
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $fileName = $this->saveImage($request->file('image')); //$request->imageでもOK
+
+            $url = Storage::disk('s3')->url($fileName);
         }
-        
+
 
         $diary->title = $request->title; //画面で入力されたタイトルを代入
         $diary->body = $request->body; //画面で入力された本文を代入
@@ -76,7 +79,7 @@ class DiaryController extends Controller
         if (Auth::user()->id !== $diary->user_id) {
             abort(403);
         }
-        
+
         $diary->delete();
 
         return redirect()->route('diary.index');
@@ -101,12 +104,23 @@ class DiaryController extends Controller
         // Carbonは日付操作のライブラリ
         $dt = Carbon::now();
 
+        if (\App::environment('heroku')) {
+            $imgPath = Storage::disk('s3')
+                ->putFile('images/diaries' . Auth::user()->id . '/' . $dt->year . '/' . $dt->month,
+                $image,
+                'public'
+            );
+
+            return Storage::disk('s3')->url($imgPath);
+        }
+
         // Userごとに年/月のフォルダを作成して画像を保存
-        $fileName = $image->store(
-            'images/diaries/' .Auth::user()->id . '/' . $dt->year . '/' . $dt->month, 
+        $imgPath = $image->store(
+            'images/diaries/' .Auth::user()->id . '/' . $dt->year . '/' . $dt->month,
             'public'
         );
 
-        return $fileName;
+        return 'storage/' . $imgPath;
+
     }
 }

@@ -13,7 +13,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/ext-core/3.1.0/ext-core.js" defer></script>
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="{{ asset('js/diary.js') }}" defer></script>
-    
+
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -55,7 +55,7 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <img height="40px" src="storage/{{ Auth::user()->picture_path }}" >
+                                <img height="40px" src="{{ Auth::user()->picture_path }}" >
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

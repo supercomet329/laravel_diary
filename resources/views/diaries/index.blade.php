@@ -10,7 +10,9 @@
 </a>
 @foreach ($diaries as $diary)
     <div class="mt-4 p-3 border border-primary">
-        <img width="100%" src="storage/{{ $diary->image_path }}">
+        @if($diary->image_path !== null)
+            <img width="100%" src="{{ $diary->image_path }}">
+        @endif
         <p>{{ $diary->title }}</p>
         <p>{{ $diary->body }}</p>
         <p>{{ $diary->created_at }}</p>

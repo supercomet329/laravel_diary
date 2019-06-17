@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\Storage;
 
 class RegisterController extends Controller
 {
@@ -56,8 +57,8 @@ class RegisterController extends Controller
         ], [], [
             'name' => 'ユーザー名',
             'email' => 'メールアドレス',
-            'password' => 'パスワード',  
-            'picture' => 'プロフィール画像'     
+            'password' => 'パスワード',
+            'picture' => 'プロフィール画像'
         ]);
     }
 
@@ -78,8 +79,15 @@ class RegisterController extends Controller
         // デフォルトではstorage/app/images/profilePictureに保存
         // ファイル名は自動で設定
         // php artisan storage:linkでシンボリックリンクを作成
-        $fileName = $image->store('images/profilePicture', 'public');
 
-        return $fileName;
+        if (\App::environment('heroku')) {
+            $imgPath = Storage::disk('s3')->putFile('images/profilePicture', $image, 'public');
+
+            return Storage::disk('s3')->url($imgPath);
+        }
+
+        $imgPath = $image->store('images/profilePicture', 'public');
+
+        return 'storage/' . $imgPath;
     }
 }

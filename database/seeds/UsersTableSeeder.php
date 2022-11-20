@@ -17,6 +17,7 @@ class UsersTableSeeder extends Seeder
             'name' => 'pikopoko',
             'email' => 'pikopoko@gmail.com',
             'password' => bcrypt('123456'),
+            'picture_path' => '',
             'created_at' => Carbon::now(),
             'updated_at' => Carbon::now(),
         ]);

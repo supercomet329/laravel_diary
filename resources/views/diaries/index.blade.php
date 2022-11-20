@@ -11,7 +11,7 @@
 @foreach ($diaries as $diary)
     <div class="mt-4 p-3 border border-primary">
         @if($diary->image_path !== null)
-            <img width="100%" src="{{ $diary->image_path }}">
+            <img width="100%" src="{{ asset($diary->image_path) }}">
         @endif
         <p>{{ $diary->title }}</p>
         <p>{{ $diary->body }}</p>

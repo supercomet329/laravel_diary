@@ -17,6 +17,8 @@ DB_SOCKET=/Applications/XAMPP/xamppfiles/var/mysql/mysql.sock   //XAMPPを使用
 
 - `php artisan migrate:fresh --seed`
 
+- `php artisan storage:link`
+
 - `php artisan serve`
 
 Go World!!

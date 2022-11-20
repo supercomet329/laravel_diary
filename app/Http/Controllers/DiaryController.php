@@ -37,7 +37,7 @@ class DiaryController extends Controller
         if ($request->hasFile('image') && $request->file('image')->isValid()) {
             $fileName = $this->saveImage($request->file('image')); //$request->imageでもOK
 
-            $url = Storage::disk('s3')->url($fileName);
+            // $url = Storage::disk('s3')->url($fileName);
         }
 
 
